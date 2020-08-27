@@ -1,0 +1,15 @@
+{
+    "registry-mirrors": [
+        "https://docker.mirrors.ustc.edu.cn/",
+        "https://dockerhub.azk8s.cn"
+     ],
+     "insecure-registries": [],
+     "log-driver": "json-file",
+     "log-opts": {
+                "max-size": "1m",
+                "max-file": "2",
+                "labels": "production_status",
+                "env": "os,customer"
+      },
+      "experimental": true
+}

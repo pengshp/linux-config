@@ -1,0 +1,52 @@
+@import '~@styles/variables';
+
+$height: 22px;
+$add-height: 25px;
+$delete-height: 22px;
+
+.tags-container {
+    display: flex;
+    align-items: flex-start;
+    overflow-y: hidden;
+}
+
+.tags {
+    display: flex;
+    flex: 1;
+    align-items: center;
+    list-style: none;
+    flex-wrap: wrap;
+    box-sizing: content-box;
+
+    li {
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: 1px solid $color-primary-dark;
+        color: $color-primary-darken;
+        height: $height;
+        border-radius: $height / 2;
+        padding: 0 6px;
+        margin: 3px 4px;
+        font-size: 10px;
+        cursor: default;
+    }
+
+    li.can-click {
+        cursor: pointer;
+    }
+
+    .tags-selected {
+        background-color: $color-primary-dark;
+        color: #fff;
+    }
+}
+
+.tags-expand {
+    height: 30px;
+    line-height: 30px;
+    padding: 0 20px;
+    user-select: none;
+    cursor: pointer;
+}

@@ -1,0 +1,39 @@
+#*:80 {
+    
+#    root /usr/share/caddy
+#}
+
+adguard.aml.lan:80 {
+    
+    reverse_proxy  127.0.0.1:3800
+}
+
+docker.aml.lan:80 {
+    
+    reverse_proxy  127.0.0.1:9000
+}
+
+ha.aml.lan:80 {
+    reverse_proxy  127.0.0.1:8123
+}
+
+blynk.aml.lan:80 {
+   
+   reverse_proxy admin 127.0.0.1:9443
+}
+
+git.aml.lan:80 {
+    
+    reverse_proxy  127.0.0.1:3000
+}
+
+file.aml.lan:80 {
+	root * /media/K3/openwrt
+	encode gzip
+	templates
+	file_server  browse
+}
+
+#log {
+#	output file /var/log/caddy/access.log
+#}

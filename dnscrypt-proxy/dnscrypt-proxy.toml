@@ -29,14 +29,14 @@
 ##
 ## Remove the leading # first to enable this; lines starting with # are ignored.
 
-# server_names = ['scaleway-fr', 'google', 'yandex', 'cloudflare']
+server_names = ['alidns', 'google', 'cloudflare']
 
 
 ## List of local addresses and ports to listen to. Can be IPv4 and/or IPv6.
 ## Example with both IPv4 and IPv6:
 ## listen_addresses = ['127.0.0.1:53', '[::1]:53']
 
-listen_addresses = ['127.0.0.1:53']
+listen_addresses = ['0.0.0.0:53']
 
 
 ## Maximum number of simultaneous client connections to accept
@@ -210,7 +210,7 @@ cert_refresh_delay = 240
 ##
 ## If more than one resolver is specified, they will be tried in sequence.
 
-fallback_resolvers = ['9.9.9.9:53', '8.8.8.8:53']
+fallback_resolvers = ['1.0.0.1:53', '8.8.8.8:53']
 
 
 ## Always use the fallback resolver before the system DNS settings.
@@ -236,7 +236,7 @@ netprobe_timeout = 60
 ## On other operating systems, the connection will be initialized
 ## but nothing will be sent at all.
 
-netprobe_address = '9.9.9.9:53'
+netprobe_address = '1.0.0.1:53'
 
 
 ## Offline mode - Do not use any remote encrypted servers.

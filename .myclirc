@@ -45,7 +45,7 @@ syntax_style = default
 # Keybindings: Possible values: emacs, vi.
 # Emacs mode: Ctrl-A is home, Ctrl-E is end. All emacs keybindings are available in the REPL.
 # When Vi mode is enabled you can use modal editing features offered by Vi in the REPL.
-key_bindings = emacs
+key_bindings = vi
 
 # Enabling this option will show the suggestions in a wider menu. Thus more items are suggested.
 wider_completion_menu = True
@@ -64,7 +64,8 @@ wider_completion_menu = True
 # \t - Product type (Percona, MySQL, MariaDB)
 # \A - DSN alias name (from the [alias_dsn] section)
 # \u - Username
-prompt = "\t \u@\h:\d> "
+# prompt = "\t \u@\h:\d> "
+prompt = "\t>"
 prompt_continuation = ->
 
 # Skip intro info on startup and outro info on exit
@@ -78,7 +79,7 @@ login_path_as_host = False
 auto_vertical_output = False
 
 # keyword casing preference. Possible values "lower", "upper", "auto"
-keyword_casing = auto
+keyword_casing = upper
 
 # disabled pager on startup
 enable_pager = False

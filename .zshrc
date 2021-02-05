@@ -1,5 +1,5 @@
 # If you come from bash you might have to change your $PATH.
-# export PATH=$HOME/bin:/usr/local/bin:$PATH
+export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
 export ZSH=$HOME/.oh-my-zsh
@@ -99,6 +99,8 @@ alias zshconfig="vim  ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 #
 
+export TERM=xterm-256color
+export PS1="\[\033[36m\][\u@\h] \w\\$ \[\033[0m\]"
 
 source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh

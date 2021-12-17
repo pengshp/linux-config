@@ -1,0 +1,77 @@
+
+global:
+  checkNewVersion: false
+  sendAnonymousUsage: true
+
+log:
+  level: INFO
+
+metrics:
+  prometheus:
+    #buckets:
+    #- 42
+    #- 42
+    addEntryPointsLabels: true
+    addRoutersLabels: true
+    addServicesLabels: true
+    entryPoint: metrics
+    #manualRouting: true
+
+api:
+  insecure: true
+  dashboard: true
+  debug: true
+
+ping:
+  entryPoint: traefik
+
+pilot:
+  dashboard: false
+
+entryPoints:
+  web:
+    address: :80
+#    http:
+#      redirections:
+#        entryPoint:
+#          to: websecure
+#          scheme: https
+
+  websecure:
+    address: :443
+    http:
+      middlewares:
+        #- secured@file
+        - default-headers@file
+        #- default-whitelist@file
+      tls: {}
+  
+#  gitea-ssh:
+#    address: ":2222"
+  
+  metrics:
+    address: ":8082"
+
+serversTransport:
+  insecureSkipVerify: true
+
+providers:
+  docker:
+    endpoint: "unix:///var/run/docker.sock"
+    exposedByDefault: false
+    defaultRule: Host(`{{ normalize .Name }}.esxi.lan`)
+  file:
+    filename: "/etc/traefik/config.yml"
+    watch: true
+
+
+#certificatesResolvers:
+#  cloudflare:
+#    acme:
+#      email: pengshp@gmail.com
+#      storage: acme.json
+#      dnsChallenge:
+#        provider: cloudflare
+#        resolvers:
+#          - "1.0.0.1:53"
+#          - "223.5.5.5:53"

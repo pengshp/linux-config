@@ -1,0 +1,185 @@
+---
+
+http:
+ #region routers 
+  routers:
+    esxi:
+      entryPoints:
+        - websecure
+      rule: "Host(`vm.example.com`)"
+      service: esxi
+      tls: {}
+    
+    adguard:
+      entryPoints:
+        - websecure
+      rule: "Host(`adguard.example.com`)"
+      service: adguard
+      tls: {}
+    
+    nas:
+      entryPoints:
+        - websecure
+      rule: "Host(`nas.example.com`)"
+      service: nas
+      tls: {}
+    
+    nas-sync:
+      entryPoints:
+        - websecure
+      rule: "Host(`nas-sync.example.com`)"
+      service: nas-sync
+      tls: {}
+
+    dash:
+      entryPoints:
+        - websecure
+      rule: "Host(`dash.example.com`)"
+      service: dash
+      tls: {}
+    
+    syncthing:
+      entryPoints:
+        - websecure
+      rule: "Host(`syncthing.example.com`)"
+      service: syncthing
+      tls: {}
+    
+    speed:
+      entryPoints:
+        - web
+        - websecure
+      rule: "Host(`speed.example.com`)"
+      middlewares:
+        - https-redirect
+        - default-whitelist
+      service: speed
+#      tls: {}
+    
+    dl:
+      entryPoints:
+        - web
+      rule: "Host(`dl.example.com`)"
+      middlewares:
+        - default-whitelist
+      service: aria2
+
+#endregion
+#region services
+  services:
+    traefik:
+      loadBalancer:
+        servers:
+          - url: "http://172.16.10.18:80"
+    
+    esxi:
+      loadBalancer:
+        servers:
+          - url: "https://172.16.10.11"
+        passHostHeader: true
+    
+    adguard:
+      loadBalancer:
+        servers:
+          - url: "http://172.16.10.18:8020"
+        passHostHeader: true
+    
+    dash:
+      loadBalancer:
+        servers:
+          - url: "http://172.16.10.60:3000"
+        passHostHeader: true
+    
+    speed:
+      loadBalancer:
+        servers:
+          - url: "http://172.16.10.18:6090"
+        passHostHeader: true
+    
+    drone:
+      loadBalancer:
+        servers:
+          - url: "http://172.16.10.18:9010"
+        passHostHeader: true
+    
+    syncthing:
+      loadBalancer:
+        servers:
+          - url: "https://172.16.10.18:8384"
+        passHostHeader: true
+    
+    nas:
+      loadBalancer:
+        servers:
+          - url: "http://172.16.10.100:5000"
+        passHostHeader: true
+    
+    nas-sync:
+      loadBalancer:
+        servers:
+          - url: "https://172.16.10.100:28888"
+        passHostHeader: true
+
+    aria2:
+      loadBalancer:
+        servers:
+          - url: "http://172.16.10.100:6880"
+        passHostHeader: true
+
+
+#endregion
+  middlewares:
+    # auth
+    user-auth:
+      basicAuth:
+        users:
+          - "admin:$aSvpcd."
+    
+    https-redirect:
+      redirectScheme:
+        scheme: https
+        permanent: true
+
+    default-headers:
+      headers:
+        frameDeny: true
+        #sslRedirect: true
+        browserXssFilter: true
+        contentTypeNosniff: true
+        forceSTSHeader: true
+        stsIncludeSubdomains: true
+        stsPreload: true
+        stsSeconds: 15552000
+        customFrameOptionsValue: SAMEORIGIN
+        customRequestHeaders:
+          X-Forwarded-Proto: https
+        permissionsPolicy: geolocation=(), microphone=()
+
+
+    default-whitelist:
+      ipWhiteList:
+        sourceRange:
+        - "10.0.0.0/8"
+        - "192.168.0.0/16"
+        - "172.16.0.0/12"
+
+    secured:
+      chain:
+        middlewares:
+        - default-whitelist
+        - default-headers
+
+tls:
+  certificates:
+    - CertFile: "/etc/traefik/ssl/server.pem"
+      KeyFile: "/etc/traefik/ssl/server-key.pem"
+  options:
+    default:
+      cipherSuites:
+        - TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384
+        - TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+        - TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256
+        - TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256
+        - TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305
+        - TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305
+      minVersion: VersionTLS12

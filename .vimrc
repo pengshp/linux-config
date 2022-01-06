@@ -53,7 +53,7 @@ set number
 " 设置tab宽度
 set tabstop=4
 " 智能自动缩进
-set smartindent
+"set smartindent
 " 设置自动对齐空格数
 set shiftwidth=4
 " 设置编码方式
@@ -67,3 +67,15 @@ set cursorline
 set hlsearch
 set incsearch
 set autoindent
+
+
+" vim-plug 
+call plug#begin('~/.vim/plugged')
+
+Plug 'mcchrish/nnn.vim'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+call plug#end()
+
+" https://github.com/vim-airline/vim-airline-themes
+let g:airline_theme='onedark'

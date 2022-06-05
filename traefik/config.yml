@@ -2,7 +2,7 @@
 
 http:
  #region routers 
-  routers:
+ routers:
     esxi:
       entryPoints:
         - websecure
